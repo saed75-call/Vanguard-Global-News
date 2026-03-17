@@ -1,0 +1,220 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanguard Global | Live News</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #d90429;
+            --dark: #1a1a1a;
+            --gray: #64748b;
+            --bg: #f8fafc;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+        }
+
+        header {
+            padding: 15px 5%;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 800; font-size: 1.4rem; }
+        .logo span { color: var(--accent); }
+        .live-tag { background: var(--accent); color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; animation: blink 1.2s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid #eee;
+            height: calc(100vh - 60px);
+            position: sticky;
+            top: 60px;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .country-item {
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .country-item:hover { background: #f1f5f9; color: var(--accent); }
+        .country-item span { font-size: 1.2rem; }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .video-box {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: black;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .news-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-bottom: 100px;
+        }
+
+        .news-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .news-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .news-card h3 { margin: 0 0 10px 0; font-size: 1.2rem; line-height: 1.4; }
+        .news-card p { font-size: 0.95rem; color: var(--gray); margin: 0; line-height: 1.6; }
+
+        .ticker {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--dark);
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+            z-index: 1001;
+        }
+        .ticker-move { display: inline-block; white-space: nowrap; animation: slide 50s linear infinite; }
+        @keyframes slide { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                display: flex;
+                overflow-x: auto;
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+            }
+            .country-item { padding: 8px 15px; white-space: nowrap; border: 1px solid #eee; border-radius: 20px; margin-right: 8px; }
+            .content { padding: 15px; }
+            .logo { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">VANGUARD <span>GLOBAL</span></div>
+        <div class="live-tag">LIVE STREAMING</div>
+    </header>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="country-item"><span>🌎</span> Global</div>
+            <div class="country-item"><span>🇺🇸</span> USA</div>
+            <div class="country-item"><span>🇬🇧</span> UK</div>
+            <div class="country-item"><span>🇵🇰</span> Pakistan</div>
+            <div class="country-item"><span>🇮🇳</span> India</div>
+            <div class="country-item"><span>🇨🇦</span> Canada</div>
+            <div class="country-item"><span>🇦🇺</span> Australia</div>
+            <div class="country-item"><span>🇩🇪</span> Germany</div>
+            <div class="country-item"><span>🇦🇪</span> UAE</div>
+            <div class="country-item"><span>🇸🇦</span> Saudi Arabia</div>
+            <div class="country-item"><span>🇯🇵</span> Japan</div>
+        </div>
+
+        <div class="content">
+            <div class="video-box">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/gCNeDWCI0vo?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <h2 style="margin-bottom: 25px;">Breaking News Feed</h2>
+            <div class="news-stack" id="feed">
+                <div style="text-align:center; padding: 40px;">Fetching global broadcasts...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ticker">
+        <div class="ticker-move" id="ticker-text">
+            VANGUARD NEWS: GLOBAL BROADCAST CONNECTED +++ REAL-TIME UPDATES FROM WORLDWIDE BUREAUS +++ 
+        </div>
+    </div>
+
+    <script>
+        async function loadNews() {
+            const urls = [
+                'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.aljazeera.com%2Fxml%2Frss%2Fall.xml',
+                'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Frss.xml'
+            ];
+
+            try {
+                let allItems = [];
+                for(let url of urls) {
+                    const res = await fetch(url);
+                    const data = await res.json();
+                    allItems = [...allItems, ...data.items];
+                }
+
+                const feed = document.getElementById('feed');
+                const ticker = document.getElementById('ticker-text');
+                feed.innerHTML = '';
+                let tickerStr = "";
+
+                allItems.forEach(item => {
+                    const card = document.createElement('a');
+                    card.className = 'news-card';
+                    card.href = item.link;
+                    card.target = '_blank';
+                    card.innerHTML = `
+                        <h3>${item.title}</h3>
+                        <p>${item.description.replace(/<[^>]*>?/gm, '').substring(0, 180)}...</p>
+                        <div style="margin-top:15px; font-size:0.8rem; color:var(--accent); font-weight:bold;">READ ARTICLE</div>
+                    `;
+                    feed.appendChild(card);
+                    tickerStr += ` +++ ${item.title.toUpperCase()}`;
+                });
+
+                ticker.innerText = tickerStr + " +++ " + tickerStr;
+            } catch (e) {
+                document.getElementById('feed').innerText = "Connectivity issue. Please refresh.";
+            }
+        }
+
+        loadNews();
+        setInterval(loadNews, 300000);
+    </script>
+</body>
+</html>
